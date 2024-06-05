@@ -1,0 +1,24 @@
+name: Build and Deploy Docker Container
+
+on:
+  push:
+    branches:
+      - main
+ 
+  springboot:
+    build:
+      context: ./apimonedas
+      dockerfile: Dockerfile
+    ports:
+      - "3001:8080"
+    networks:
+      - reddivisionpolitica 
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/monedas
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: sa
+ 
+
+ 

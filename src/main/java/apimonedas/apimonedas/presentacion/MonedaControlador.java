@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import apimonedas.apimonedas.core.DTOs.PeriodoDto;
+import apimonedas.apimonedas.core.entidades.CambioMoneda;
 import apimonedas.apimonedas.core.entidades.Moneda;
 import apimonedas.apimonedas.core.interfaces.servicios.IMonedaServicio;
 
@@ -53,6 +55,14 @@ public class MonedaControlador {
     @RequestMapping(value = "/eliminar/{id}", method = RequestMethod.DELETE)
     public boolean eliminar(@PathVariable long id) {
         return servicio.eliminar(id);
+    }
+
+    @RequestMapping(value = "/listarporperiodo", method = RequestMethod.GET)
+    public List<CambioMoneda> listarPorPeriodo(@RequestBody PeriodoDto periodo) {
+        System.out.println(
+                "periodo=" + periodo.getDesde() + " " + periodo.getHasta() + " idmoneda=" + periodo.getIdMoneda());
+
+        return servicio.listarPorPeriodo(periodo.getIdMoneda(), periodo.getDesde(), periodo.getHasta());
     }
 
 }

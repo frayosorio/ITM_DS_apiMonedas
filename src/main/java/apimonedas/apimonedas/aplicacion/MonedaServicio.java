@@ -1,11 +1,14 @@
 package apimonedas.apimonedas.aplicacion;
 
 import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import apimonedas.apimonedas.core.entidades.CambioMoneda;
 import apimonedas.apimonedas.core.entidades.Moneda;
+import apimonedas.apimonedas.core.interfaces.repositorios.ICambioMonedaRepositorio;
 import apimonedas.apimonedas.core.interfaces.repositorios.IMonedaRepositorio;
 import apimonedas.apimonedas.core.interfaces.servicios.IMonedaServicio;
 
@@ -13,9 +16,12 @@ import apimonedas.apimonedas.core.interfaces.servicios.IMonedaServicio;
 public class MonedaServicio implements IMonedaServicio {
 
     private IMonedaRepositorio repositorio;
+    private ICambioMonedaRepositorio repositorioCambio;
 
-    public MonedaServicio(IMonedaRepositorio repositorio) {
+    public MonedaServicio(IMonedaRepositorio repositorio,
+            ICambioMonedaRepositorio repositorioCambio) {
         this.repositorio = repositorio;
+        this.repositorioCambio = repositorioCambio;
     }
 
     @Override
@@ -62,5 +68,10 @@ public class MonedaServicio implements IMonedaServicio {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    @Override
+    public List<CambioMoneda> listarPorPeriodo(long idMoneda, Date fecha1, Date fecha2) {
+        return repositorioCambio.listarPorPeriodo(idMoneda, fecha1, fecha2);
     }
 }

@@ -1,7 +1,9 @@
 package apimonedas.apimonedas.core.interfaces.servicios;
 
 import java.util.List;
+import java.util.Date;
 
+import apimonedas.apimonedas.core.entidades.CambioMoneda;
 import apimonedas.apimonedas.core.entidades.Moneda;
 
 public interface IMonedaServicio {
@@ -19,5 +21,7 @@ public interface IMonedaServicio {
     public Moneda modificar(Moneda moneda);
 
     public boolean eliminar(Long id);
+	
+	public List<CambioMoneda> listarPorPeriodo(long idMoneda, Date fecha1, Date fecha2);
 
 }
